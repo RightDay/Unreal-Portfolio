@@ -22,6 +22,5 @@ void AFountain::BeginPlay()
 void AFountain::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	
 }
-
