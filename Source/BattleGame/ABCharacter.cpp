@@ -44,19 +44,6 @@ AABCharacter::AABCharacter()
         GetMesh()->SetAnimInstanceClass(WARRIOR_ANIM.Class);
     }
 
-    //FName WeaponSocket(TEXT("hand_rSocket"));
-    //if (GetMesh()->DoesSocketExist(WeaponSocket))
-    //{
-    //    Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("WEAPON"));
-    //    static ConstructorHelpers::FObjectFinder<USkeletalMesh> SK_WEAPON(TEXT("SkeletalMesh'/Game/InfinityBladeWeapons/Weapons/Blade/Swords/Blade_HeroSword11/SK_Blade_HeroSword11.SK_Blade_HeroSword11'"));
-    //    if (SK_WEAPON.Succeeded())
-    //    {
-    //        Weapon->SetSkeletalMesh(SK_WEAPON.Object);
-    //    }
-
-    //    Weapon->SetupAttachment(GetMesh(), WeaponSocket);
-    //}
-
     SetControlMode(EControlMode::DIABLO);
 
     ArmLengthSpeed = 3.0f;
@@ -104,8 +91,6 @@ void AABCharacter::SetControlMode(EControlMode NewControlMode)
     switch (CurrentControlMode)
     {
     case EControlMode::GTA:
-        //SpringArm->TargetArmLength = 450.0f;
-        //SpringArm->SetRelativeRotation(FRotator::ZeroRotator);
         ArmLengthTo = 450.0f;
         SpringArm->bUsePawnControlRotation = true;
         SpringArm->bInheritPitch = true;
@@ -118,8 +103,6 @@ void AABCharacter::SetControlMode(EControlMode NewControlMode)
         GetCharacterMovement()->RotationRate = FRotator(0.0f, 720.0f, 0.0f);
         break;
     case EControlMode::DIABLO:
-        //SpringArm->TargetArmLength = 800.0f;
-        //SpringArm->SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
         ArmLengthTo = 800.0f;
         ArmRotationTo = FRotator(-45.0f, 0.0f, 0.0f);
         SpringArm->bUsePawnControlRotation = false;
@@ -131,6 +114,12 @@ void AABCharacter::SetControlMode(EControlMode NewControlMode)
         GetCharacterMovement()->bOrientRotationToMovement = false;
         GetCharacterMovement()->bUseControllerDesiredRotation = true;
         GetCharacterMovement()->RotationRate = FRotator(0.0f, 720.0f, 0.0f);
+        break;
+    case EControlMode::NPC:
+        bUseControllerRotationYaw = false;
+        GetCharacterMovement()->bUseControllerDesiredRotation = false;
+        GetCharacterMovement()->bOrientRotationToMovement = true;
+        GetCharacterMovement()->RotationRate = FRotator(0.0f, 480.0f, 0.0f);
         break;
     }
 }
@@ -198,6 +187,22 @@ float AABCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEve
 
     CharacterStat->SetDamage(FinalDamage);
     return FinalDamage;
+}
+
+void AABCharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+
+    if (IsPlayerControlled())
+    {
+        SetControlMode(EControlMode::DIABLO);
+        GetCharacterMovement()->MaxWalkSpeed = 600.0f;
+    }
+    else
+    {
+        SetControlMode(EControlMode::NPC);
+        GetCharacterMovement()->MaxWalkSpeed = 300.0f;
+    }
 }
 
 // Called to bind functionality to input
@@ -319,6 +324,7 @@ void AABCharacter::OnAttackMontageEnded(UAnimMontage* Montage, bool bInterrupted
     ABCHECK(CurrentCombo > 0);
     IsAttacking = false;
     AttackEndComboState();
+    OnAttackEnd.Broadcast();
 }
 
 void AABCharacter::AttackStartComboState()
