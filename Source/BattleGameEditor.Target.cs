@@ -10,6 +10,6 @@ public class BattleGameEditorTarget : TargetRules
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V2;
 
-		ExtraModuleNames.AddRange( new string[] { "BattleGame" } );
+		ExtraModuleNames.AddRange( new string[] { "BattleGame", "ArenaBattleSetting" } );
 	}
 }
