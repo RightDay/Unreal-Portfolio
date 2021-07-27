@@ -10,6 +10,7 @@
 #include "ABAIController.h"
 #include "ABCharacterSetting.h"
 #include "ABGameInstance.h"
+#include "ABPlayerController.h""
 
 // Sets default values
 AABCharacter::AABCharacter()
@@ -80,12 +81,34 @@ AABCharacter::AABCharacter()
             ABLOG(Warning, TEXT("Character Asset : %s"), *CharacterAsset.ToString());
         }
     }
+
+    AssetIndex = 4;
+    
+    SetActorHiddenInGame(true);
+    HPBarWidget->SetHiddenInGame(true);
+    SetCanBeDamaged(false);
+}
+
+void AABCharacter::SetCharacterState(ECharacterState NewState)
+{
+}
+
+ECharacterState AABCharacter::GetCharacterState() const
+{
+    return ECharacterState();
 }
 
 // Called when the game starts or when spawned
 void AABCharacter::BeginPlay()
 {
     Super::BeginPlay();
+
+    bIsPlayer = IsPlayerControlled();
+    if (bIsPlayer)
+    {
+        ABPlayerController = Cast<AABPlayerController>(GetController());
+        ABCHECK(nullptr != ABPlayerController);
+    }
 
     if (!IsPlayerControlled())
     {
