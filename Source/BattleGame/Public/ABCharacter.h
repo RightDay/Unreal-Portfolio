@@ -18,6 +18,7 @@ public:
 	AABCharacter();
 	void SetCharacterState(ECharacterState NewState);
 	ECharacterState GetCharacterState() const;
+	int32 GetExp() const;
 
 protected:
 	// Called when the game starts or when spawned
@@ -127,8 +128,13 @@ private:
 	bool bIsPlayer;
 
 	UPROPERTY()
-	class ABAIController* ABAIController;
+	class AABAIController* ABAIController;
 
 	UPROPERTY()
 	class AABPlayerController* ABPlayerController;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = State, Meta = (AllowPrivateAccess = true))
+	float DeadTimer;
+
+	FTimerHandle DeadTimerHandle = { };
 };
