@@ -178,7 +178,7 @@ void AABCharacter::SetCharacterState(ECharacterState NewState)
 
             if (bIsPlayer)
             {
-                ABPlayerController->RestartLevel();
+                ABPlayerController->ShowResultUI();
             }
             else
             {
@@ -235,7 +235,9 @@ void AABCharacter::BeginPlay()
 
     if (bIsPlayer)
     {
-        AssetIndex = 4;
+        auto ABPlayerState = Cast<AABPlayerState>(GetPlayerState());
+        ABCHECK(nullptr != ABPlayerState);
+        AssetIndex = ABPlayerState->GetCharacterIndex();
     }
     else
     {
