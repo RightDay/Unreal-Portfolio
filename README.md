@@ -6,6 +6,8 @@
 
 - Youtube : https://url.kr/av7ks2
 
+![ScreenShot](./images/GameplayScreenshot.png)
+
 
 
 ## 조작키
