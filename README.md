@@ -2,7 +2,7 @@
 
 **[이득우의 언리얼 C++ 게임 개발의 정석]** 책을 읽고 공부한 프로젝트입니다.
 
-- Ue4 Version : 4.26.2
+- Unreal Version : 4.26.2
 
 - Youtube : https://url.kr/av7ks2
 
