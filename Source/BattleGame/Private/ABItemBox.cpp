@@ -38,11 +38,6 @@ AABItemBox::AABItemBox()
 	Trigger->SetCollisionProfileName(TEXT("ItemBox"));
 	Box->SetCollisionProfileName(TEXT("NoCollision"));
 	WeaponItemClass = AABWeapon::StaticClass();
-	//static ConstructorHelpers::FClassFinder<AABWeapon> U_WEAPON(TEXT("Blueprint'/Game/Book/Blueprints/BP_WeaponAxe.BP_WeaponAxe_C'"));
-	//if (U_WEAPON.Succeeded())
-	//{
-	//	WeaponItemClass = U_WEAPON.Class;
-	//}
 }
 
 // Called when the game starts or when spawned

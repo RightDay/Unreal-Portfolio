@@ -250,19 +250,6 @@ void AABCharacter::BeginPlay()
     AssetStreamingHandle = ABGameInstance->StreamableManager.RequestAsyncLoad(CharacterAssetToLoad, FStreamableDelegate::CreateUObject(this, &AABCharacter::OnAssetLoadCompleted));
     SetCharacterState(ECharacterState::LOADING);
 
-    //if (!IsPlayerControlled())
-    //{
-    //    auto DefaultSetting = GetDefault<UABCharacterSetting>();
-    //    int32 RandIndex = FMath::RandRange(0, DefaultSetting->CharacterAssets.Num() - 1);
-    //    CharacterAssetToLoad = DefaultSetting->CharacterAssets[RandIndex];
-
-    //    auto ABGameInstance = Cast<UABGameInstance>(GetGameInstance());
-    //    if (nullptr != ABGameInstance)
-    //    {
-    //        AssetStreamingHandle = ABGameInstance->StreamableManager.RequestAsyncLoad(CharacterAssetToLoad, FStreamableDelegate::CreateUObject(this, &AABCharacter::OnAssetLoadCompleted));
-    //    }
-    //}
-
     auto CharacterWidget = Cast<UABCharacterWidget>(HPBarWidget->GetUserWidgetObject());
     if (nullptr != CharacterWidget)
     {
@@ -388,7 +375,7 @@ void AABCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
     Super::SetupPlayerInputComponent(PlayerInputComponent);
 
     PlayerInputComponent->BindAction(TEXT("ViewChange"), EInputEvent::IE_Pressed, this, &AABCharacter::ViewChange);
-    PlayerInputComponent->BindAction(TEXT("`"), EInputEvent::IE_Pressed, this, &ACharacter::Jump);
+    PlayerInputComponent->BindAction(TEXT("Jump"), EInputEvent::IE_Pressed, this, &ACharacter::Jump);
     PlayerInputComponent->BindAction(TEXT("Attack"), EInputEvent::IE_Pressed, this, &AABCharacter::Attack);
 
     PlayerInputComponent->BindAxis(TEXT("UpDown"), this, &AABCharacter::UpDown);
