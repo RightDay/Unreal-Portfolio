@@ -6,7 +6,7 @@
 
 - Youtube : https://url.kr/av7ks2
 
-![ScreenShot](./images/GameplayScreenshot.png)
+![ScreenShot](./images/GamePlayScreenshot.png)
 
 
 
