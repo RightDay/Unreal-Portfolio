@@ -1,4 +1,4 @@
-# Ue4 Study Project
+# UE4 Study Project
 
 **[이득우의 언리얼 C++ 게임 개발의 정석]** 책을 읽고 공부한 프로젝트입니다.
 
